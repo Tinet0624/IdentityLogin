@@ -23,5 +23,25 @@ namespace IdentityLogin.Models
                 }
             }
         }
+
+        public static async Task CreateDefaultUser(IServiceProvider provider, string role)
+        {
+            var userManager = provider.GetService<UserManager<IdentityUser>>();
+
+            // if no users are present make default user
+            int numUsers = (await userManager.GetUsersInRoleAsync(role)).Count;
+             if (numUsers == 0) // if no users are in the specified role
+            {
+                var defaultUser = new IdentityUser()
+                {
+                    Email = "instructor@IdentityHelper.com",
+                    UserName = "Admin"
+                };
+
+                await userManager.CreateAsync(defaultUser, "Password");
+
+                await userManager.AddToRoleAsync(defaultUser, role);
+            }
+        }
     }
 }
