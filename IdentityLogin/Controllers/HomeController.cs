@@ -1,9 +1,11 @@
 ﻿using IdentityLogin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace IdentityLogin.Controllers
 {
+    // Can add Authorize here as well! to lock out full website
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,11 +15,13 @@ namespace IdentityLogin.Controllers
             _logger = logger;
         }
 
+        // [AllowAnonymous] to overide Authorize and veiw specific pages
         public IActionResult Index()
         {
             return View();
         }
 
+        //[Authorize(Roles = IdentityHelper.Student)]
         public IActionResult Privacy()
         {
             return View();
