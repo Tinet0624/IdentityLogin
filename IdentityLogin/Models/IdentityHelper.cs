@@ -38,7 +38,7 @@ namespace IdentityLogin.Models
                     UserName = "Admin"
                 };
 
-                await userManager.CreateAsync(defaultUser, "Password");
+                await userManager.CreateAsync(defaultUser, "P@ssword1!!");
 
                 await userManager.AddToRoleAsync(defaultUser, role);
             }
